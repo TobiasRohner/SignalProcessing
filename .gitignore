@@ -45,3 +45,22 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Build directories
+.obj/
+x64/
+Debug/
+Release/
+
+# Documentation
+doc/
+
+# Test files
+unmodified.wav
+modified.wav
+Noise.wav
+
+# executable
+decoder.exe
+decoder.exe.stackdump
+gmon.out
