@@ -123,8 +123,8 @@ inline void FrequencyModulator<Tout>::UpdatePhase()
 	auto in = GetRealInput(0);
 	phase_div_pi[0] = next_phase_div_pi_0;
 	for (int i = 1; i < RealSimd::static_size; ++i)
-		phase_div_pi[i] = phase_div_pi[i - 1] + (frequency + in[i - 1] * bandwidth * Deltatime());
-	next_phase_div_pi_0 = phase_div_pi[RealSimd::static_size - 1] + (frequency + in[RealSimd::static_size - 1] * bandwidth * Deltatime());
+		phase_div_pi[i] = phase_div_pi[i - 1] + (frequency + in[i - 1] * bandwidth * DeltatimeOut());
+	next_phase_div_pi_0 = phase_div_pi[RealSimd::static_size - 1] + (frequency + in[RealSimd::static_size - 1] * bandwidth * DeltatimeOut());
 	//Subtract 2 (period of boost::simd::sincospi) as soon as the first value is bigger than 1
 	if (phase_div_pi[0] > 1)
 		phase_div_pi -= RealSimd(2);

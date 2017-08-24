@@ -12,7 +12,7 @@ template class Differentiator<Complex>;
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 Differentiator<Real>::Differentiator(uint32_t sample_rate) :
-	Filter(sample_rate, { Filter::FilterOutputType::REAL }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
 	amplitude_correction_factor(sample_rate / boost::math::constants::two_pi<Real>()),
 	last_sample_real(0)
 {
@@ -24,7 +24,7 @@ Differentiator<Real>::Differentiator(uint32_t sample_rate) :
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 Differentiator<Complex>::Differentiator(uint32_t sample_rate) :
-	Filter(sample_rate, { Filter::FilterOutputType::COMPLEX }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	amplitude_correction_factor(sample_rate / boost::math::constants::two_pi<Real>()),
 	last_sample_real(0),
 	last_sample_imag(0)

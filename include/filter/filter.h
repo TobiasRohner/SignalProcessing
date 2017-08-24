@@ -34,16 +34,35 @@ public:
 	 * \brief Constructor
 	 *
 	 * \param sample_rate The number of samples per second of the input to this filter.
+	 *                    Assumes the sample rate at the output is equal to that at the input.
 	 */
 	Filter(uint32_t sample_rate);
 
 	/**
 	 * \brief Constructor
 	 *
+	 * \param sample_rate_in The number of samples per second at the input to this filter.
+	 * \param sample_rate out The number of samples per second at the outputs of this filter.
+	 */
+	Filter(uint32_t sample_rate_in, uint32_t sample_rate_out);
+
+	/**
+	 * \brief Constructor
+	 *
 	 * \param sample_rate The number of samples per second of the input to this filter.
+	 *                    Assumes the sample rate at the output is equal to that at the input.
 	 * \param outputs A vector describing the output types of the filter's outputs.
 	 */
 	Filter(uint32_t sample_rate, const std::vector<FilterOutputType>& outputs);
+
+	/**
+	 * \brief Constructor
+	 *
+	 * \param sample_rate_in The number of samples per second at the input of this filter.
+	 * \param sample_rate_out The number of samples per second at the outputs of this filter.
+	 * \param outputs A vector describing the output types of this filters outputs.
+	 */
+	Filter(uint32_t sample_rate_in, uint32_t sample_rate_out, const std::vector<FilterOutputType>& outputs);
 
 	/**
 	 * \brief Destructor
@@ -88,27 +107,49 @@ public:
 
 	
 	/**
-	 * \brief Get the sample rate of the output of this filter.
+	 * \brief Get the sample rate of the input of this filter.
 	 *
-	 * \returns The number of samples per second this filter provides at its outputs.
+	 * \returns The number of samples per second this filter provides at its inputs.
 	 */
-	uint32_t SampleRate() const;
+	uint32_t SampleRateIn() const;
 
 	/**
-	 * \brief Get the nyquist frequency of the output of this filter.
+	 * \brief Get the sample rate at the output of this filter.
 	 *
-	 * \returns The nyquist frequency of the outputs of this filter.
+	 * \returns The number of samples per second this filter provides at its outputs
 	 */
-	Real Nyquist() const;
+	uint32_t SampleRateOut() const;
+
+	/**
+	 * \brief Get the nyquist frequency of the input of this filter.
+	 *
+	 * \returns The nyquist frequency of the inputs of this filter.
+	 */
+	Real NyquistIn() const;
+
+	/**
+	* \brief Get the nyquist frequency of the output of this filter.
+	*
+	* \returns The nyquist frequency of the outputs of this filter.
+	*/
+	Real NyquistOut() const;
 
 
 	/**
 	 * \brief Get the time between two samples.
 	 *
-	 * \returns The time passing between two samples at the outputs of this filter.
-	 *          This is equivalent to `1.0 / SampleRate()`.
+	 * \returns The time passing between two samples at the inputs of this filter.
+	 *          This is equivalent to `1.0 / SampleRateIn()`.
 	 */
-	double Deltatime() const;
+	double DeltatimeIn() const;
+
+	/**
+	* \brief Get the time between two samples.
+	*
+	* \returns The time passing between two samples at the outputs of this filter.
+	*          This is equivalent to `1.0 / SampleRateOut()`.
+	*/
+	double DeltatimeOut() const;
 
 protected:
 	/**
@@ -205,9 +246,12 @@ protected:
 	std::pair<const Real*, const Real*> GetComplexInput(size_t index) const;
 
 private:
-	const uint32_t sample_rate;
-	const Real nyquist;
-	const double deltatime;
+	const uint32_t sample_rate_in;
+	const uint32_t sample_rate_out;
+	const Real nyquist_in;
+	const Real nyquist_out;
+	const double deltatime_in;
+	const double deltatime_out;
 
 	AlignedStdVec<Real> output_real;
 	AlignedStdVec<Real> output_imag;
@@ -222,21 +266,39 @@ private:
 
 //---------- inlined / templated functions implementation ----------//
 
-inline uint32_t Filter::SampleRate() const
+inline uint32_t Filter::SampleRateIn() const
 {
-	return sample_rate;
+	return sample_rate_in;
 }
 
 
-inline Real Filter::Nyquist() const
+inline uint32_t Filter::SampleRateOut() const
 {
-	return nyquist;
+	return sample_rate_out;
 }
 
 
-inline double Filter::Deltatime() const
+inline Real Filter::NyquistIn() const
 {
-	return deltatime;
+	return nyquist_in;
+}
+
+
+inline Real Filter::NyquistOut() const
+{
+	return nyquist_out;
+}
+
+
+inline double Filter::DeltatimeIn() const
+{
+	return deltatime_in;
+}
+
+
+inline double Filter::DeltatimeOut() const
+{
+	return deltatime_out;
 }
 
 

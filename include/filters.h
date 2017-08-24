@@ -39,6 +39,7 @@
 #include <filter/fir.h>
 #include <filter/differentiator.h>
 #include <filter/low_pass.h>
+#include <filter/cic.h>
 #include <filter/vector_output.h>
 #include <filter/riff_wave_output.h>
 

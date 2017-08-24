@@ -135,7 +135,7 @@ inline Real FrequencyGenerator<Tout>::Phaseshift() const
 template<typename Tout>
 inline void FrequencyGenerator<Tout>::UpdatePhase()
 {
-	phase_div_pi += RealSimd(2 * frequency * RealSimd::static_size * Deltatime());
+	phase_div_pi += RealSimd(2 * frequency * RealSimd::static_size * DeltatimeOut());
 	//Subtract 2 (period of boost::simd::sincospi) as soon as the first value is bigger than 1
 	if (phase_div_pi[RealSimd::static_size / 2] > 1)
 		phase_div_pi -= RealSimd(2);

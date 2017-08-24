@@ -64,3 +64,8 @@ Noise.wav
 decoder.exe
 decoder.exe.stackdump
 gmon.out
+
+# VS Files
+SignalProcessing.vcxproj
+SignalProcessing.vcxproj.filter
+SignalProcessing.vcxproj.user

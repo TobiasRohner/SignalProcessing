@@ -8,7 +8,7 @@ template class FirNoSimdImpl<Complex>;
 
 template<>
 FirNoSimdImpl<Real>::FirNoSimdImpl(uint32_t sample_rate, const std::vector<Real>& coeff) :
-	Filter(sample_rate, { Filter::FilterOutputType::REAL }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
 	coefficients(coeff.crbegin(), coeff.crend()),
 	buffer_real(coeff.size(), Real(0))
 {
@@ -18,7 +18,7 @@ FirNoSimdImpl<Real>::FirNoSimdImpl(uint32_t sample_rate, const std::vector<Real>
 
 template<>
 FirNoSimdImpl<Complex>::FirNoSimdImpl(uint32_t sample_rate, const std::vector<Real>& coeff) :
-	Filter(sample_rate, { Filter::FilterOutputType::COMPLEX }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	coefficients(coeff.crbegin(), coeff.crend()),
 	buffer_real(coeff.size(), Real(0)),
 	buffer_imag(coeff.size(), Real(0))

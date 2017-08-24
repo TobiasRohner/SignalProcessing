@@ -9,7 +9,7 @@ template class VectorInput<Complex>;
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 VectorInput<Real>::VectorInput(uint32_t sample_rate) :
-	Filter(sample_rate, { Filter::FilterOutputType::REAL })
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL))
 {
 }
 ///\endcond
@@ -18,7 +18,7 @@ VectorInput<Real>::VectorInput(uint32_t sample_rate) :
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 VectorInput<Complex>::VectorInput(uint32_t sample_rate) :
-	Filter(sample_rate, { Filter::FilterOutputType::COMPLEX })
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX))
 {
 }
 ///\endcond
@@ -27,7 +27,7 @@ VectorInput<Complex>::VectorInput(uint32_t sample_rate) :
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 VectorInput<Real>::VectorInput(uint32_t sample_rate, const std::vector<Real>& out) :
-	Filter(sample_rate, { Filter::FilterOutputType::REAL }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
 	output_samples(out)
 {
 }
@@ -37,7 +37,7 @@ VectorInput<Real>::VectorInput(uint32_t sample_rate, const std::vector<Real>& ou
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 VectorInput<Complex>::VectorInput(uint32_t sample_rate, const std::vector<Complex>& out) :
-	Filter(sample_rate, { Filter::FilterOutputType::COMPLEX }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	output_samples(out)
 {
 }

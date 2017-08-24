@@ -12,7 +12,7 @@ template class FrequencyGenerator<Complex>;
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 FrequencyGenerator<Real>::FrequencyGenerator(uint32_t sample_rate, Real frequency, Real amplitude, Real phaseshift) :
-	Filter(sample_rate, { Filter::FilterOutputType::REAL }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
 	frequency(frequency),
 	amplitude(amplitude),
 	phaseshift(phaseshift)
@@ -26,7 +26,7 @@ FrequencyGenerator<Real>::FrequencyGenerator(uint32_t sample_rate, Real frequenc
 ///\cond IMPLEMENTATION_DETAILS
 template<>
 FrequencyGenerator<Complex>::FrequencyGenerator(uint32_t sample_rate, Real frequency, Real amplitude, Real phaseshift) :
-	Filter(sample_rate, { Filter::FilterOutputType::COMPLEX }),
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	frequency(frequency),
 	amplitude(amplitude),
 	phaseshift(phaseshift)
@@ -50,5 +50,5 @@ void FrequencyGenerator<Tout>::InitPhase()
 {
 	Real phaseshift_time = phaseshift / boost::math::constants::pi<Real>();
 	for (int i = 0; i < RealSimd::static_size; ++i)
-		phase_div_pi[i] = frequency * static_cast<Real>(2 * i * Deltatime()) + phaseshift_time;
+		phase_div_pi[i] = frequency * static_cast<Real>(2 * i * DeltatimeOut()) + phaseshift_time;
 }

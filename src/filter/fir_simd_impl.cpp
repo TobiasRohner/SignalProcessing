@@ -10,7 +10,7 @@ template class FirSimdImpl<Complex>;
 
 template<>
 FirSimdImpl<Real>::FirSimdImpl(uint32_t sample_rate, const std::vector<Real>& coeff) :
-	Filter(sample_rate, { Filter::FilterOutputType::REAL })
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL))
 {
 	AddInput({ nullptr, 0 });
 	SetCoefficients(coeff);
@@ -19,7 +19,7 @@ FirSimdImpl<Real>::FirSimdImpl(uint32_t sample_rate, const std::vector<Real>& co
 
 template<>
 FirSimdImpl<Complex>::FirSimdImpl(uint32_t sample_rate, const std::vector<Real>& coeff) :
-	Filter(sample_rate, { Filter::FilterOutputType::COMPLEX })
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX))
 {
 	AddInput({ nullptr, 0 });
 	SetCoefficients(coeff);
