@@ -8,7 +8,7 @@ template class FrequencyShift<Complex>;
 
 
 template<typename Tin>
-FrequencyShift<Tin>::FrequencyShift(uint32_t sample_rate, Real shift) :
+FrequencyShift<Tin>::FrequencyShift(double sample_rate, Real shift) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	deltaphase_div_pi(2 * shift / sample_rate)
 {

@@ -8,7 +8,7 @@ template class AmplitudeModulator<Complex>;
 
 
 template<typename Tout>
-AmplitudeModulator<Tout>::AmplitudeModulator(uint32_t sample_rate, Real frequency, Real amplitude, Real phaseshift) :
+AmplitudeModulator<Tout>::AmplitudeModulator(double sample_rate, Real frequency, Real amplitude, Real phaseshift) :
 	FrequencyGenerator<Tout>(sample_rate, frequency, amplitude, phaseshift)
 {
 	AddInput({ nullptr, 0 });

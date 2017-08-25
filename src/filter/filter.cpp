@@ -2,35 +2,23 @@
 
 
 
-Filter::Filter(uint32_t sample_rate) :
-	sample_rate_in(sample_rate),
-	sample_rate_out(sample_rate),
-	nyquist_in(static_cast<Real>(sample_rate) / 2),
-	nyquist_out(static_cast<Real>(sample_rate) / 2),
-	deltatime_in(1.0 / sample_rate),
-	deltatime_out(1.0 / sample_rate)
+Filter::Filter(double sample_rate) :
+	sample_rate(sample_rate),
+	decimation_factor(1)
 {
 }
 
 
-Filter::Filter(uint32_t sample_rate_in, uint32_t sample_rate_out) :
-	sample_rate_in(sample_rate_in),
-	sample_rate_out(sample_rate_out),
-	nyquist_in(static_cast<Real>(sample_rate_in) / 2),
-	nyquist_out(static_cast<Real>(sample_rate_out) / 2),
-	deltatime_in(1.0 / sample_rate_in),
-	deltatime_out(1.0 / sample_rate_out)
+Filter::Filter(double sample_rate, uint32_t decimation_factor) :
+	sample_rate(sample_rate),
+	decimation_factor(decimation_factor)
 {
 }
 
 
-Filter::Filter(uint32_t sample_rate, const std::vector<Filter::FilterOutputType>& outputs) :
-	sample_rate_in(sample_rate),
-	sample_rate_out(sample_rate),
-	nyquist_in(static_cast<Real>(sample_rate) / 2),
-	nyquist_out(static_cast<Real>(sample_rate) / 2),
-	deltatime_in(1.0 / sample_rate),
-	deltatime_out(1.0 / sample_rate)
+Filter::Filter(double sample_rate, const std::vector<Filter::FilterOutputType>& outputs) :
+	sample_rate(sample_rate),
+	decimation_factor(1)
 {
 	//Find out if the filter has a complex output in order to determine wether the output_imag vector has to be used
 	bool has_imaginary_output = false;
@@ -48,13 +36,9 @@ Filter::Filter(uint32_t sample_rate, const std::vector<Filter::FilterOutputType>
 }
 
 
-Filter::Filter(uint32_t sample_rate_in, uint32_t sample_rate_out, const std::vector<Filter::FilterOutputType>& outputs) :
-	sample_rate_in(sample_rate_in),
-	sample_rate_out(sample_rate_out),
-	nyquist_in(static_cast<Real>(sample_rate_in) / 2),
-	nyquist_out(static_cast<Real>(sample_rate_out) / 2),
-	deltatime_in(1.0 / sample_rate_in),
-	deltatime_out(1.0 / sample_rate_out)
+Filter::Filter(double sample_rate, uint32_t decimation_factor, const std::vector<Filter::FilterOutputType>& outputs) :
+	sample_rate(sample_rate),
+	decimation_factor(decimation_factor)
 {
 	//Find out if the filter has a complex output in order to determine wether the output_imag vector has to be used
 	bool has_imaginary_output = false;

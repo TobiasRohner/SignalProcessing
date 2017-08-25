@@ -40,14 +40,14 @@ public:
 	 * \brief Constructor
 	 * \param sample_rate The number of samples per second ath the input of this filter.
 	 */
-	Fir(uint32_t sample_rate);
+	Fir(double sample_rate);
 
 	/**
 	 * \brief Constructor
 	 * \param sample_rate The number of samples per second at the input to this filter.
 	 * \param coeff A `std::vector<Real>` of filter coefficients.
 	 */
-	Fir(uint32_t sample_rate, const std::vector<Real>& coeff);
+	Fir(double sample_rate, const std::vector<Real>& coeff);
 
 	/**
 	 * \brief Updates the output of this filter
@@ -64,8 +64,8 @@ template<typename Tin>
 class Fir<Tin, static_cast<int64_t>(Filter::FilterSize::DYNAMIC)> : public Fir<Tin, 0>
 {
 public:
-	Fir(uint32_t sample_rate);
-	Fir(uint32_t sample_rate, const std::vector<Real>& coeff);
+	Fir(double sample_rate);
+	Fir(double sample_rate, const std::vector<Real>& coeff);
 
 protected:
 	using FirBaseType<Tin, Filter::FilterSize::DYNAMIC>::SetCoefficients;
@@ -79,14 +79,14 @@ private:
 //---------- Fir Implementation ----------//
 
 template<typename Tin, int64_t tapcount>
-Fir<Tin, tapcount>::Fir(uint32_t sample_rate) :
+Fir<Tin, tapcount>::Fir(double sample_rate) :
 	FirBaseType<Tin, tapcount>(sample_rate, std::vector<Real>(tapcount, 0))
 {
 }
 
 
 template<typename Tin, int64_t tapcount>
-Fir<Tin, tapcount>::Fir(uint32_t sample_rate, const std::vector<Real>& coeff) :
+Fir<Tin, tapcount>::Fir(double sample_rate, const std::vector<Real>& coeff) :
 	FirBaseType<Tin, tapcount>(sample_rate, coeff)
 {
 	BOOST_ASSERT_MSG(coeff.size() == tapcount, "Wrong number of coefficients passed to the FIR Filter constructor!");
@@ -94,15 +94,15 @@ Fir<Tin, tapcount>::Fir(uint32_t sample_rate, const std::vector<Real>& coeff) :
 
 
 template<typename Tin>
-Fir<Tin, Filter::FilterSize::DYNAMIC>::Fir(uint32_t sample_rate) :
+Fir<Tin, Filter::FilterSize::DYNAMIC>::Fir(double sample_rate) :
 	Fir<Tin, 0>(sample_rate)
 {
 }
 
 
 template<typename Tin>
-Fir<Tin, Filter::FilterSize::DYNAMIC>::Fir(uint32_t sample_rate, const std::vector<Real>& coeff) :
-	Fir<Tin, 0>(sample_rate, {})
+Fir<Tin, Filter::FilterSize::DYNAMIC>::Fir(double sample_rate, const std::vector<Real>& coeff) :
+	Fir<Tin, 0>(sample_rate)
 {
 	this->SetCoefficients(coeff);
 }

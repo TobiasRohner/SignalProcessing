@@ -22,7 +22,7 @@ public:
 	 * \param sample_rate The number of samples per second arriving at the input of this filter
 	 * \param shift The number of Hertz to shift the frequency spectrum
 	 */
-	FrequencyShift(uint32_t sample_rate, Real shift);
+	FrequencyShift(double sample_rate, Real shift);
 
 
 	/**

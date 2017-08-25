@@ -25,7 +25,7 @@ public:
 	 *                  never leaves the range [-1, 1]. This defaults to 1.
 	 * \param phaseshift The phase shift of the carrier wave in the interval `[0, 2pi)`.
 	 */
-	AmplitudeModulator(uint32_t sample_rate, Real frequency = Real(1), Real amplitude = Real(1), Real phaseshift = Real(0));
+	AmplitudeModulator(double sample_rate, Real frequency = Real(1), Real amplitude = Real(1), Real phaseshift = Real(0));
 
 
 	/**

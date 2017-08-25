@@ -26,7 +26,7 @@ public:
 	 * \param bandwidth The bandwidth of the signal ass uming the input is in the range `[-1, 1]`. This defaults to 1Hz.
 	 * \param amplitude The amplitude of the carrier wave. This defaults to 1.
 	 */
-	FrequencyModulator(uint32_t sample_rate, Real frequency = Real(0), Real bandwidth = Real(1), Real amplitude = Real(1));
+	FrequencyModulator(double sample_rate, Real frequency = Real(0), Real bandwidth = Real(1), Real amplitude = Real(1));
 
 
 	/**

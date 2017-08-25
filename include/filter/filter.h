@@ -36,15 +36,15 @@ public:
 	 * \param sample_rate The number of samples per second of the input to this filter.
 	 *                    Assumes the sample rate at the output is equal to that at the input.
 	 */
-	Filter(uint32_t sample_rate);
+	Filter(double sample_rate);
 
 	/**
 	 * \brief Constructor
 	 *
-	 * \param sample_rate_in The number of samples per second at the input to this filter.
-	 * \param sample_rate out The number of samples per second at the outputs of this filter.
+	 * \param sample_rate The number of samples per second at the input to this filter.
+	 * \param decimation_factor The sample rate gets decimated by this factor at the output of the filter.
 	 */
-	Filter(uint32_t sample_rate_in, uint32_t sample_rate_out);
+	Filter(double sample_rate, uint32_t decimation_factor);
 
 	/**
 	 * \brief Constructor
@@ -53,16 +53,16 @@ public:
 	 *                    Assumes the sample rate at the output is equal to that at the input.
 	 * \param outputs A vector describing the output types of the filter's outputs.
 	 */
-	Filter(uint32_t sample_rate, const std::vector<FilterOutputType>& outputs);
+	Filter(double sample_rate, const std::vector<FilterOutputType>& outputs);
 
 	/**
 	 * \brief Constructor
 	 *
-	 * \param sample_rate_in The number of samples per second at the input of this filter.
-	 * \param sample_rate_out The number of samples per second at the outputs of this filter.
+	 * \param sample_rate The number of samples per second at the input of this filter.
+	 * \param decimation_factor The sample rate gets decimated by this factor at the output of the filter.
 	 * \param outputs A vector describing the output types of this filters outputs.
 	 */
-	Filter(uint32_t sample_rate_in, uint32_t sample_rate_out, const std::vector<FilterOutputType>& outputs);
+	Filter(double sample_rate, uint32_t decimation_factor, const std::vector<FilterOutputType>& outputs);
 
 	/**
 	 * \brief Destructor
@@ -107,32 +107,39 @@ public:
 
 	
 	/**
+	 * \brief Get the decimation factor of this filter
+	 *
+	 * \returns The decimation factor of this filter.
+	 */
+	uint32_t DecimationFactor() const;
+	
+	/**
 	 * \brief Get the sample rate of the input of this filter.
 	 *
 	 * \returns The number of samples per second this filter provides at its inputs.
 	 */
-	uint32_t SampleRateIn() const;
+	double SampleRateIn() const;
 
 	/**
 	 * \brief Get the sample rate at the output of this filter.
 	 *
 	 * \returns The number of samples per second this filter provides at its outputs
 	 */
-	uint32_t SampleRateOut() const;
+	double SampleRateOut() const;
 
 	/**
 	 * \brief Get the nyquist frequency of the input of this filter.
 	 *
 	 * \returns The nyquist frequency of the inputs of this filter.
 	 */
-	Real NyquistIn() const;
+	double NyquistIn() const;
 
 	/**
 	* \brief Get the nyquist frequency of the output of this filter.
 	*
 	* \returns The nyquist frequency of the outputs of this filter.
 	*/
-	Real NyquistOut() const;
+	double NyquistOut() const;
 
 
 	/**
@@ -246,12 +253,8 @@ protected:
 	std::pair<const Real*, const Real*> GetComplexInput(size_t index) const;
 
 private:
-	const uint32_t sample_rate_in;
-	const uint32_t sample_rate_out;
-	const Real nyquist_in;
-	const Real nyquist_out;
-	const double deltatime_in;
-	const double deltatime_out;
+	const double sample_rate;
+	const uint32_t decimation_factor;
 
 	AlignedStdVec<Real> output_real;
 	AlignedStdVec<Real> output_imag;
@@ -266,39 +269,39 @@ private:
 
 //---------- inlined / templated functions implementation ----------//
 
-inline uint32_t Filter::SampleRateIn() const
+inline double Filter::SampleRateIn() const
 {
-	return sample_rate_in;
+	return sample_rate;
 }
 
 
-inline uint32_t Filter::SampleRateOut() const
+inline double Filter::SampleRateOut() const
 {
-	return sample_rate_out;
+	return sample_rate / decimation_factor;
 }
 
 
-inline Real Filter::NyquistIn() const
+inline double Filter::NyquistIn() const
 {
-	return nyquist_in;
+	return sample_rate / 2;
 }
 
 
-inline Real Filter::NyquistOut() const
+inline double Filter::NyquistOut() const
 {
-	return nyquist_out;
+	return sample_rate / decimation_factor / 2;
 }
 
 
 inline double Filter::DeltatimeIn() const
 {
-	return deltatime_in;
+	return 1.0 / sample_rate;
 }
 
 
 inline double Filter::DeltatimeOut() const
 {
-	return deltatime_out;
+	return decimation_factor / sample_rate;
 }
 
 

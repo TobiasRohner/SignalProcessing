@@ -7,7 +7,7 @@ template class VectorOutput<Complex>;
 
 
 template<typename Tin>
-VectorOutput<Tin>::VectorOutput(uint32_t sample_rate) :
+VectorOutput<Tin>::VectorOutput(double sample_rate) :
 	Filter(sample_rate),
 	output(0)
 {

@@ -17,7 +17,7 @@ public:
 	 * \brief Constructor
 	 * \param sample_rate The number of samples per second that are provided as input to this filter.
 	 */
-	Differentiator(uint32_t sample_rate);
+	Differentiator(double sample_rate);
 
 
 	/**

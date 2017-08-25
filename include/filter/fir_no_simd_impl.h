@@ -13,7 +13,7 @@ template<typename Tin>
 class FirNoSimdImpl : public Filter
 {
 public:
-	FirNoSimdImpl(uint32_t sample_rate, const std::vector<Real>& coeff);
+	FirNoSimdImpl(double sample_rate, const std::vector<Real>& coeff);
 
 	virtual void Update();
 

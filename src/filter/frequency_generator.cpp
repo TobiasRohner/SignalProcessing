@@ -11,7 +11,7 @@ template class FrequencyGenerator<Complex>;
 
 ///\cond IMPLEMENTATION_DETAILS
 template<>
-FrequencyGenerator<Real>::FrequencyGenerator(uint32_t sample_rate, Real frequency, Real amplitude, Real phaseshift) :
+FrequencyGenerator<Real>::FrequencyGenerator(double sample_rate, Real frequency, Real amplitude, Real phaseshift) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
 	frequency(frequency),
 	amplitude(amplitude),
@@ -25,7 +25,7 @@ FrequencyGenerator<Real>::FrequencyGenerator(uint32_t sample_rate, Real frequenc
 
 ///\cond IMPLEMENTATION_DETAILS
 template<>
-FrequencyGenerator<Complex>::FrequencyGenerator(uint32_t sample_rate, Real frequency, Real amplitude, Real phaseshift) :
+FrequencyGenerator<Complex>::FrequencyGenerator(double sample_rate, Real frequency, Real amplitude, Real phaseshift) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	frequency(frequency),
 	amplitude(amplitude),

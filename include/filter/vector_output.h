@@ -21,7 +21,7 @@ public:
 	 *
 	 * \param sample_rate The number of samples per second produced by the input to this filter.
 	 */
-	VectorOutput(uint32_t sample_rate);
+	VectorOutput(double sample_rate);
 
 
 	/**

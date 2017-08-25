@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 #ifdef _MSC_VER
 	TestAll();
 #endif
-	
+
 	if (argc >= 2 && (argv[1] == std::string("-t") || argv[1] == std::string("--test"))) {	//Run tests
 		TestAll();
 	}
@@ -42,12 +42,12 @@ int main(int argc, char* argv[])
 			modified_out.Update();
 		}
 		auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now() - start).count();
-		std::cout << duration << "ns for " << samplecount << "Samples => " << ((double)duration / samplecount) << "ns per Sample" << std::endl;	
+		std::cout << duration << "ns for " << samplecount << "Samples => " << ((double)duration / samplecount) << "ns per Sample" << std::endl;
 
-#ifdef _MSC_VER
+		#ifdef _MSC_VER
 		char c;
 		std::cin >> c;
-#endif
+		#endif
 	}
 
 	return 0;

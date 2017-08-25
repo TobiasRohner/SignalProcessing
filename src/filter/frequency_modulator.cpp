@@ -8,7 +8,7 @@ template class FrequencyModulator<Complex>;
 
 ///\cond IMPLEMENTATION_DETAILS
 template<>
-FrequencyModulator<Real>::FrequencyModulator(uint32_t sample_rate, Real frequency, Real bandwidth, Real amplitude) :
+FrequencyModulator<Real>::FrequencyModulator(double sample_rate, Real frequency, Real bandwidth, Real amplitude) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
 	frequency(frequency),
 	bandwidth(bandwidth),
@@ -24,7 +24,7 @@ FrequencyModulator<Real>::FrequencyModulator(uint32_t sample_rate, Real frequenc
 
 ///\cond IMPLEMENTATION_DETAILS
 template<>
-FrequencyModulator<Complex>::FrequencyModulator(uint32_t sample_rate, Real frequency, Real bandwidth, Real amplitude) :
+FrequencyModulator<Complex>::FrequencyModulator(double sample_rate, Real frequency, Real bandwidth, Real amplitude) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
 	frequency(frequency),
 	bandwidth(bandwidth),

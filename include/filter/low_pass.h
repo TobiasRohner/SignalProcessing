@@ -24,7 +24,7 @@ public:
 	 * \param cutoff_frequency The cutoff frequency of the low pass filter
 	 * \param window_function The window function to weigh the coefficients with. This defaults to \ref Rectangular
 	 */
-	LowPass(uint32_t sample_rate, Real cutoff_frequency, const std::function<Real(Real)>& window_function = Rectangular);
+	LowPass(double sample_rate, Real cutoff_frequency, const std::function<Real(Real)>& window_function = Rectangular);
 
 	using Fir<Tin, tapcount>::Deltatime;
 	using Fir<Tin, tapcount>::SetInput;
@@ -52,7 +52,7 @@ template<typename Tin>
 class LowPass<Tin, Filter::FilterSize::DYNAMIC> : public LowPass<Tin, 0>
 {
 public:
-	LowPass(uint32_t sample_rate, Real cutoff_frequency, uint32_t tapcount, const std::function<Real(Real)>& window_function = Rectangular);
+	LowPass(double sample_rate, Real cutoff_frequency, uint32_t tapcount, const std::function<Real(Real)>& window_function = Rectangular);
 
 protected:
 	std::vector<Real> coefficients(uint32_t count, const std::function<Real(Real)>& window_function) const;
@@ -64,7 +64,7 @@ protected:
 //---------- LowPass Implementation ----------//
 
 template<typename Tin, int64_t tapcount>
-LowPass<Tin, tapcount>::LowPass(uint32_t sample_rate, Real cutoff_frequency, const std::function<Real(Real)>& window_function) :
+LowPass<Tin, tapcount>::LowPass(double sample_rate, Real cutoff_frequency, const std::function<Real(Real)>& window_function) :
 	Fir<Tin, tapcount>(sample_rate),
 	cutoff_frequency_norm(cutoff_frequency / sample_rate)
 {
@@ -74,7 +74,7 @@ LowPass<Tin, tapcount>::LowPass(uint32_t sample_rate, Real cutoff_frequency, con
 
 
 template<typename Tin>
-LowPass<Tin, Filter::FilterSize::DYNAMIC>::LowPass(uint32_t sample_rate, Real cutoff_frequency, uint32_t tapcount, const std::function<Real(Real)>& window_function) :
+LowPass<Tin, Filter::FilterSize::DYNAMIC>::LowPass(double sample_rate, Real cutoff_frequency, uint32_t tapcount, const std::function<Real(Real)>& window_function) :
 	LowPass<Tin, 0>(sample_rate, cutoff_frequency, window_function)
 {
 	std::vector<Real> coeff(coefficients(tapcount, window_function));

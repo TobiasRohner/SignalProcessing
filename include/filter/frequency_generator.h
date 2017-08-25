@@ -25,7 +25,7 @@ public:
 	 * \param amplitude The amplitude of the generated waveform. This defaults to `1`.
 	 * \param phaseshift The phaseshift of the generated waveform in the interval `[0, 2pi)`. This defaults to `0`.
 	 */
-	FrequencyGenerator(uint32_t sample_rate, Real frequency = Real(1), Real amplitude = Real(1), Real phaseshift = Real(0));
+	FrequencyGenerator(double sample_rate, Real frequency = Real(1), Real amplitude = Real(1), Real phaseshift = Real(0));
 
 
 	/**

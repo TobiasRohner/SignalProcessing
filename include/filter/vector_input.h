@@ -21,14 +21,14 @@ public:
 	 * \brief Constructor
 	 * \param sample_rate The number of samples per second this filter outputs.
 	 */
-	VectorInput(uint32_t sample_rate);
+	VectorInput(double sample_rate);
 
 	/**
 	 * \brief Constructor
 	 * \param sample_rate The number of samples per second this filter outputs.
 	 * \param out A vector storing the data to output.
 	 */
-	VectorInput(uint32_t sample_rate, const std::vector<Tout>& out);
+	VectorInput(double sample_rate, const std::vector<Tout>& out);
 
 
 	/**

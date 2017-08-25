@@ -15,7 +15,7 @@ template<typename Tin>
 class FirSimdImpl : public Filter		//FIXME: This filter produces the wrong results (Output samples are in the wrong order)
 {
 public:
-	FirSimdImpl(uint32_t sample_rate, const std::vector<Real>& coeff);
+	FirSimdImpl(double sample_rate, const std::vector<Real>& coeff);
 
 	virtual void Update();
 
