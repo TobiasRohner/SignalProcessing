@@ -26,9 +26,9 @@ VectorInput<Complex>::VectorInput(double sample_rate) :
 
 ///\cond IMPLEMENTATION_DETAILS
 template<>
-VectorInput<Real>::VectorInput(double sample_rate, const std::vector<Real>& out) :
+VectorInput<Real>::VectorInput(double sample_rate, std::vector<Real> out) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
-	output_samples(out)
+	output_samples(std::move(out))
 {
 }
 ///\endcond
@@ -36,12 +36,31 @@ VectorInput<Real>::VectorInput(double sample_rate, const std::vector<Real>& out)
 
 ///\cond IMPLEMENTATION_DETAILS
 template<>
-VectorInput<Complex>::VectorInput(double sample_rate, const std::vector<Complex>& out) :
+VectorInput<Complex>::VectorInput(double sample_rate, std::vector<Complex> out) :
 	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
-	output_samples(out)
+	output_samples(std::move(out))
 {
 }
 ///\endcond
+
+
+///\cond IMPLEMENTATION_DETAILS
+template<>
+VectorInput<Real>::VectorInput(double sample_rate, std::vector<Real>&& out) :
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::REAL)),
+	output_samples(std::move(out))
+{
+}
+///\endcond
+
+
+///\cond IMPLEMENTATION_DETAILS
+template<>
+VectorInput<Complex>::VectorInput(double sample_rate, std::vector<Complex>&& out) :
+	Filter(sample_rate, std::vector<Filter::FilterOutputType>(1, Filter::FilterOutputType::COMPLEX)),
+	output_samples(std::move(out))
+{
+}
 
 
 ///\cond IMPLEMENTATION_DETAILS
@@ -73,7 +92,14 @@ void VectorInput<Complex>::Update()
 
 
 template<typename Tout>
-void VectorInput<Tout>::SetInput(const std::vector<Tout>& out)
+void VectorInput<Tout>::SetInput(std::vector<Tout> out)
 {
-	output_samples = out;
+	output_samples = std::move(out);
+}
+
+
+template<typename Tout>
+void VectorInput<Tout>::SetInput(std::vector<Tout>&& out)
+{
+	output_samples = std::move(out);
 }

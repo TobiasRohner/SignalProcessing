@@ -25,10 +25,17 @@ public:
 
 	/**
 	 * \brief Constructor
-	 * \param sample_rate The number of samples per second this filter outputs.
+	 * \param sample_rate The number of samples per second this filters input.
 	 * \param out A vector storing the data to output.
 	 */
-	VectorInput(double sample_rate, const std::vector<Tout>& out);
+	VectorInput(double sample_rate, std::vector<Tout> out);
+
+	/**
+	 * \brief Constructor
+	 * \param sample_rate The number of samples per second at this filters input.
+	 * \param out A vector storing the data to output.
+	 */
+	VectorInput(double sample_rate, std::vector<Tout>&& out);
 
 
 	/**
@@ -44,7 +51,13 @@ public:
 	 *
 	 * \param out The data this filter outputs.
 	 */
-	void SetInput(const std::vector<Tout>& out);
+	void SetInput(std::vector<Tout> out);
+
+	/**
+	 * \brief Sets the data this filter outputs.
+	 * \param out The data this filter outputs.
+	 */
+	void SetInput(std::vector<Tout>&& out);
 
 private:
 	std::vector<Tout> output_samples;	///< A copy of the data to output.
